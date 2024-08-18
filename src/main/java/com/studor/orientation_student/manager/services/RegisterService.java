@@ -38,6 +38,6 @@ public class RegisterService {
         profil.setSexe(sexe);
         user.setProfil(profil);
         user = userRepository.save(user);
-        validationService.register(user);
+        validationService.signUp(user);
     }
 }

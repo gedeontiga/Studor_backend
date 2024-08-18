@@ -53,12 +53,4 @@ public class RegisterController {
             return ResponseEntity.badRequest().body(response);  // 400 Bad Request status code
         }
     }
-
-    @PostMapping("/activation")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
-    }
-    
 }

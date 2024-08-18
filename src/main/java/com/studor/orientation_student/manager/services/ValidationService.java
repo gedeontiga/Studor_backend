@@ -16,22 +16,26 @@ import lombok.AllArgsConstructor;
 @Service
 public class ValidationService {
     
-    private ValidationRepository userValidationRepository;
+    private ValidationRepository validationRepository;
     private MailNotificationService mailNotificationService;
 
-    public void register(User user){
-        Validation userValidalidation = new Validation();
-        userValidalidation.setUser(user);
+    public void signUp(User user){
+        Validation userValidation = new Validation();
+        userValidation.setUser(user);
         Instant creation = Instant.now();
-        userValidalidation.setCreationInstant(creation);
+        userValidation.setCreationInstant(creation);
         Instant expiration = creation.plus(10, MINUTES);
-        userValidalidation.setExpirationInstant(expiration);
+        userValidation.setExpirationInstant(expiration);
 
         Random random = new Random();
         Integer randomInteger = random.nextInt(999999);
         String code = String.format("%06d", randomInteger);
-        userValidalidation.setCode(code);
-        userValidalidation = userValidationRepository.save(userValidalidation);
-        mailNotificationService.send(userValidalidation);
+        userValidation.setCode(code);
+        userValidation = validationRepository.save(userValidation);
+        mailNotificationService.send(userValidation);
+    }
+
+    public Validation checkValidation(String code){
+        return validationRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Invalid code"));
     }
 }
