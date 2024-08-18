@@ -1,0 +1,44 @@
+<!-- <button class="btn btn-outline-secondary" type="button" (click)="openDialog()" >Saisir les Notes</button> -->
+<header class="fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">
+      <div class="logo-text d-flex flex-row justify-content-center align-items-center">
+        <div class="studor-logo">
+          <div class="studor-text-logo">StudOr</div>
+        </div>
+        <span>
+          StudOr
+        </span>
+      </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+        <ul class="nav navbar-nav nav-underline"
+        style="--bs-nav-link-color: var(--bs-white);">
+          <li class="nav-item">
+            <a class="nav-link"  routerLink="/home">Acceuil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/establishment-job">Métier&Établissement</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/schedule">Programme</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/agenda">Agenda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <img src="/images/user.png" alt="">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

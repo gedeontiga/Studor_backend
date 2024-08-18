@@ -1,0 +1,179 @@
+
+.register-body {
+  background-image: url('/images/signup-background.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.register-container {
+  background-color: rgba(227, 242, 255, 0.284);
+  backdrop-filter: invert(80%);
+  -webkit-backdrop-filter: invert(80%);
+  /* backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); */
+}
+
+.register-form-container{
+  height: 80vh;
+  background-color: hsla(240, 100%, 18%, 0.5);
+  border-radius: 1rem;
+  width: 70%;
+  /* backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); */
+  backdrop-filter: invert(80%);
+  -webkit-backdrop-filter: invert(80%);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  @media (max-width: 700px) {
+    height: 100vh;
+    width: 100%;
+  }
+}
+
+.register-header{
+  height: 10vh;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-left: 2px solid #00005a;
+  border-top: 2px solid #00005a;
+  border-right: 2px solid #00005a;
+  border-bottom: 2px solid #ff9100;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #00005a;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.step-fields-container {
+  height: 52vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-bottom: 2px solid #ff9100;
+  box-shadow: 0 4px 8px #ff9100;
+
+  @media (max-width: 700px) {
+    height: 70vh;
+  }
+}
+
+.register-form-content input{
+  background-color: hsla(240, 100%, 18%, 0.441);
+  border-color: #ff9100;
+  /* border-left: none;
+  border-right: none; */
+  color: white;
+}
+
+.register-form-content select{
+  background-color: hsla(240, 100%, 18%, 0.441);
+  border-color: #ff9100;
+  /* border-left: none;
+  border-right: none; */
+  color: white;
+}
+
+.register-form-content select option{
+  background-color: hsla(240, 100%, 18%, 0.852);
+  color: white;
+}
+
+.register-form-content input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.input-group-text {
+  background-color: #00005a;
+  border: none;
+}
+
+.input-group-email {
+  color: #ff9100;
+  background-color: #00005a;
+  width: 30%;
+  @media (max-width: 768px) {
+    width: auto;
+  }
+}
+
+.bi{
+  color: #ff9100;
+}
+
+.hide-show-password-btn {
+  background-color: aliceblue;
+  border: none;
+  .bi {
+    color: #00005a;
+  }
+}
+
+.hide-show-password-btn:hover {
+  background-color: #00005a;
+  border: none;
+  .bi {
+    color: aliceblue;
+  }
+}
+
+.btn-step-container {
+  height: 10vh;
+}
+
+.btn-step {
+  width: 40%;
+  background-color: aliceblue;
+  border: none;
+  color: #00005a;
+}
+
+
+.btn-step:hover {
+  background-color: hsla(34, 100%, 50%, 0.5);
+  border: 2px solid aliceblue;
+  color: aliceblue;
+  font-weight: bolder;
+}
+
+.btn-submit {
+  width: 40%;
+  background-color: #ff9100;
+  border: none;
+  color: #00005a;
+}
+
+
+.btn-submit:hover {
+  background-color: rgba(240, 248, 255, 0.5);
+  border: 2px solid #ff9100;
+  color: #00005a;
+  font-weight: bolder;
+}
+
+.invalid-feedback {
+  color: red;
+}
+
+.form-label {
+  color: aliceblue;
+}
+
+/* CSS for personalized scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: aliceblue; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00005a; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9100; /* Color when hovering over the thumb */
+}

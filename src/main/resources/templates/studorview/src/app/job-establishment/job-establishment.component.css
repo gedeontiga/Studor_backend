@@ -1,0 +1,35 @@
+
+/* .job-establishment{
+  margin-top: 70px;
+  background-image: url("/images/job-establishment.webp");
+} */
+.job-establishment {
+  background-image: url('/images/background-image.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+
+.job-establishment-content {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: rgba(0, 0, 0, 0.523);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* backdrop-filter: invert(80%);
+  -webkit-backdrop-filter: invert(80%); */
+  /* backdrop-filter: sepia(80%);
+  -webkit-backdrop-filter: sepia(80%); */
+}
+
+.carousel-caption h1{
+  color: #ff9100;
+}
+
+/* .carousel-caption button:hover{
+  background-color: #ff9100;
+  border: none;
+  color: #00005a;
+} */

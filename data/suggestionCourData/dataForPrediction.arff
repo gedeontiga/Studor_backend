@@ -1,0 +1,9 @@
+@relation SugestionCourEmploiTemps
+
+@attribute statutProfessionnel {junior, cenior, amateur, junior_intermédiaire, cenior_intermédiaire, professionnel}
+@attribute moyenneScolaire {passable, assez_bien, bien, tres_bien, excellent}
+@attribute niveauAcademique {l1,l2,l3,m1,m2,d1,d2,d3}
+@attribute nomEmpoitemps {e1,e2,e3,e4,e5,e6,e7,e8,e9,e10}
+
+@data
+professionnel,excellent,d2,?
