@@ -55,10 +55,10 @@ public class Profil {
     @ManyToOne
     private Job job;
 
-    @OneToMany(mappedBy = "profil")
+    @OneToMany(mappedBy = "profil", cascade = CascadeType.ALL)
     private List<NotesReport> notesReports;
 
-    @OneToOne(mappedBy = "profil")
+    @OneToOne(mappedBy = "profil", cascade = CascadeType.ALL)
     private User user;
 
     @ManyToMany

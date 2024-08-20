@@ -129,7 +129,7 @@ export class RegisterFormComponent {
       ],
       gender: ['', Validators.required],
       username: ['', Validators.required],
-      emailBase: [
+      email: [
         '',
         [Validators.required, Validators.pattern('[a-z0-9._%+-]+')],
       ],
@@ -206,7 +206,7 @@ export class RegisterFormComponent {
   isValidStepTwo(): boolean {
     if (
       this.registerForm.get('username')?.valid &&
-      this.registerForm.get('emailBase')?.valid &&
+      this.registerForm.get('email')?.valid &&
       this.registerForm.get('passwordGroup.password')?.valid &&
       this.registerForm.get('passwordGroup.confirmPassword')?.valid
     ) {
@@ -218,7 +218,7 @@ export class RegisterFormComponent {
   onSubmit() {
     if (!this.isValidStepTwo()) {
       this.registerForm.get('username')?.markAllAsTouched();
-      this.registerForm.get('emailBase')?.markAllAsTouched();
+      this.registerForm.get('email')?.markAllAsTouched();
       this.registerForm.get('passwordGroup.password')?.markAllAsTouched();
       this.registerForm
         .get('passwordGroup.confirmPassword')

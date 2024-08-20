@@ -20,19 +20,19 @@ public class ValidationService {
     private MailNotificationService mailNotificationService;
 
     public void signUp(User user){
-        Validation userValidation = new Validation();
-        userValidation.setUser(user);
+        Validation validation = new Validation();
+        validation.setUser(user);
         Instant creation = Instant.now();
-        userValidation.setCreationInstant(creation);
+        validation.setCreationInstant(creation);
         Instant expiration = creation.plus(10, MINUTES);
-        userValidation.setExpirationInstant(expiration);
+        validation.setExpirationInstant(expiration);
 
         Random random = new Random();
         Integer randomInteger = random.nextInt(999999);
         String code = String.format("%06d", randomInteger);
-        userValidation.setCode(code);
-        userValidation = validationRepository.save(userValidation);
-        mailNotificationService.send(userValidation);
+        validation.setCode(code);
+        validation = validationRepository.save(validation);
+        mailNotificationService.sendMail(validation);
     }
 
     public Validation checkValidation(String code){

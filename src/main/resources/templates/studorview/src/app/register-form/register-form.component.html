@@ -127,18 +127,18 @@
                 <div class="input-group has-validation">
                   <span class="input-group-text"><i class="bi bi-envelope-at-fill"></i></span>
                   <input type="text" class="form-control" placeholder="Entrez la base de votre email"
-                    formControlName="emailBase" [ngClass]="{
-                    'is-invalid': (registerForm.get('emailBase')?.touched ||
-                                registerForm.get('emailBase')?.dirty) &&
-                                registerForm.get('emailBase')?.invalid,
-                    'is-valid': registerForm.get('emailBase')?.valid
+                    formControlName="email" [ngClass]="{
+                    'is-invalid': (registerForm.get('email')?.touched ||
+                                registerForm.get('email')?.dirty) &&
+                                registerForm.get('email')?.invalid,
+                    'is-valid': registerForm.get('email')?.valid
                   }" autocomplete="username">
                   <span id="email-end" class="input-group-email input-group-text">&#64;studor.com</span>
                   <div class="invalid-feedback">
-                    <span *ngIf="registerForm.get('emailBase')?.errors?.['required']">
+                    <span *ngIf="registerForm.get('email')?.errors?.['required']">
                       Veuillez entrer la base de votre email.
                     </span>
-                    <span *ngIf="registerForm.get('emailBase')?.errors?.['pattern']">
+                    <span *ngIf="registerForm.get('email')?.errors?.['pattern']">
                       La base de l'email ne peut contenir d'expression regulière.
                     </span>
                   </div>

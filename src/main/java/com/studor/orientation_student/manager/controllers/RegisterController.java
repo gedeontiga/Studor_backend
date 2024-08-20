@@ -14,11 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/sign-up")
+@CrossOrigin(origins = "*")
+@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
@@ -37,10 +39,11 @@ public class RegisterController {
             User user = new User();
             user.setEmail(signUpFormValues.get("email").toString());
             user.setMotDePasse(signUpFormValues.get("password").toString());
+            System.out.println(signUpFormValues.get("password").toString());
             user.setNom(signUpFormValues.get("username").toString());
             LocalDate birthDate = LocalDate.parse(signUpFormValues.get("birthDate").toString());
-            signUpService.register(user, signUpFormValues.get("firstname").toString(), 
-                                    signUpFormValues.get("lastname").toString(), 
+            signUpService.register(user, signUpFormValues.get("firstName").toString(), 
+                                    signUpFormValues.get("lastName").toString(), 
                                     signUpFormValues.get("sexe").toString(), birthDate);
 
             response.put("status", "success");
