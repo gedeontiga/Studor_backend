@@ -2,16 +2,7 @@
 <!-- <app-navbar></app-navbar>
 <app-job-establishment></app-job-establishment> -->
 <!-- <app-register-form></app-register-form> -->
-<!-- <div class="container">
-  <div class="form-outline mt-4">
-    <input type="search" id="search" class="form-control" placeholder=" " required />
-    <label class="form-label" for="search">Search</label>
-    <button class="btn btn-primary" type="submit">
-      <i class="bi bi-search"></i>
-    </button>
-  </div>
-</div> -->
-<form class="container d-flex mt-4">
+<!-- <form class="container d-flex mt-4">
   <div class="input-group">
     <div class="outline-label">
       <input type="search" placeholder=""/>
@@ -21,4 +12,18 @@
       <i class="bi bi-search"></i>
     </button>
   </div>
-</form>
+</form> -->
+<div class="col-md-12 mt-5">
+  <div class="input-group has-validation">
+    <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+    <div class="outline-label w-75">
+      <input type="text" class="form-control" placeholder="" formControlName="firstName">
+      <label for="nom" class="form-label">Nom</label>
+    </div>
+    <div class="invalid-feedback">
+      <span>
+        Votre nom ne doit contenir que des caractère alphabétique.
+      </span>
+    </div>
+  </div>
+</div>
