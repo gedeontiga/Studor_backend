@@ -60,6 +60,7 @@
 }
 
 .register-form-content input{
+  /* width: 90%; */
   background-color: hsla(240, 100%, 18%, 0.441);
   border-color: #ff9100;
   /* border-left: none;
@@ -97,6 +98,29 @@
     width: auto;
   }
 }
+
+/* .input-text {
+  width: 90%;
+
+  @media (max-width: 600px) {
+    width: 80%;
+  }
+} */
+
+/* .input-text-email {
+  width: 60%;
+  @media (max-width: 600px) {
+    width: auto;
+  }
+} */
+
+/* .input-password{
+  width: 80%;
+
+  @media (max-width: 600px) {
+    width: auto;
+  }
+} */
 
 .bi{
   color: #ff9100;
