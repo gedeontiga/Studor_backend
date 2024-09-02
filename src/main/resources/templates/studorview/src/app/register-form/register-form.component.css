@@ -2,16 +2,13 @@
 .register-body {
   background-image: url('/images/signup-background.webp');
   background-size: cover;
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 .register-container {
-  background-color: rgba(227, 242, 255, 0.284);
-  backdrop-filter: invert(80%);
-  -webkit-backdrop-filter: invert(80%);
-  /* backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); */
+  background-color: rgba(227, 242, 255, 0.285);
 }
 
 .register-form-container{
@@ -19,8 +16,8 @@
   background-color: hsla(240, 100%, 18%, 0.5);
   border-radius: 1rem;
   width: 70%;
-  /* backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); */
+  /* backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); */
   backdrop-filter: invert(80%);
   -webkit-backdrop-filter: invert(80%);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -43,8 +40,8 @@
   color: #00005a;
   background-color: rgba(255, 255, 255, 0.5);
   width: 100%;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .step-fields-container {
@@ -60,19 +57,20 @@
 }
 
 .register-form-content input{
-  /* width: 90%; */
+  padding: .5rem .5rem;
   background-color: hsla(240, 100%, 18%, 0.441);
   border-color: #ff9100;
-  /* border-left: none;
-  border-right: none; */
   color: white;
 }
 
+.register-form-content label{
+  font-size: 1.25rem;
+}
+
 .register-form-content select{
+  padding: .5rem .5rem;
   background-color: hsla(240, 100%, 18%, 0.441);
   border-color: #ff9100;
-  /* border-left: none;
-  border-right: none; */
   color: white;
 }
 
@@ -87,7 +85,7 @@
 
 .input-group-text {
   background-color: #00005a;
-  border: none;
+  border: 1px solid #ff9100;
 }
 
 .input-group-email {
@@ -98,29 +96,6 @@
     width: auto;
   }
 }
-
-/* .input-text {
-  width: 90%;
-
-  @media (max-width: 600px) {
-    width: 80%;
-  }
-} */
-
-/* .input-text-email {
-  width: 60%;
-  @media (max-width: 600px) {
-    width: auto;
-  }
-} */
-
-/* .input-password{
-  width: 80%;
-
-  @media (max-width: 600px) {
-    width: auto;
-  }
-} */
 
 .bi{
   color: #ff9100;
@@ -174,10 +149,6 @@
   border: 2px solid #ff9100;
   color: #00005a;
   font-weight: bolder;
-}
-
-.invalid-feedback {
-  color: red;
 }
 
 .form-label {

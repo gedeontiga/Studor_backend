@@ -18,7 +18,7 @@ public class MailNotificationService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("no-reply@studor.com");
         mailMessage.setTo(validation.getUser().getEmail());
-        mailMessage.setSubject("Votre code d'activation");
+        mailMessage.setSubject("Code d'activation");
 
         String text = String.format(
             "Salut %s, \n votre code d'activation est %s.\n Merci d'utiliser l'application StudOr et a bientot.",
