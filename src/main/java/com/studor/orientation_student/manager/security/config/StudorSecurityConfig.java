@@ -22,9 +22,7 @@ public class StudorSecurityConfig {
         http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
             authorize -> authorize
-                .requestMatchers("/register/**").permitAll()
-                .requestMatchers("/account/**").permitAll()
-                .requestMatchers("/login/**").permitAll()
+                .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/notesreport-api/**").permitAll()
                 .anyRequest().authenticated()
         );

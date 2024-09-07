@@ -12,7 +12,10 @@ import com.studor.orientation_student.entities.suggestionCourEntities.ObjectifPr
 import com.studor.orientation_student.entities.suggestionCourEntities.Programme;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,7 +45,11 @@ public class Profil {
     private String nom;
     private String prenom;
     private LocalDate dateDeNaissance;
-    private String sexe;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender sexe;
+    
     private String loisirs;
     private String metierDuPere;
     private String metierDeLaMere;

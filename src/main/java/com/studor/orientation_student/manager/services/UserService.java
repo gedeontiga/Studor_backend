@@ -4,12 +4,12 @@ import java.util.Map;
 import java.time.Instant;
 import java.time.LocalDate;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.studor.orientation_student.entities.Gender;
 import com.studor.orientation_student.entities.Profil;
 import com.studor.orientation_student.entities.Role;
 import com.studor.orientation_student.entities.RoleType;
@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         profil.setNom(nom);
         profil.setPrenom(prenom);
         profil.setDateDeNaissance(birthDate);
-        profil.setSexe(sexe);
+        profil.setSexe(Gender.valueOf(sexe.toUpperCase()));
         user.setProfil(profil);
         user = userRepository.save(user);
         validationService.signUp(user);
@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
