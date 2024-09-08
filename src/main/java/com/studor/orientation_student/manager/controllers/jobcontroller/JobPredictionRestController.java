@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.restcontrollers;
+package com.studor.orientation_student.manager.controllers.jobcontroller;
 
 import java.util.Map;
 
@@ -23,8 +23,8 @@ public class JobPredictionRestController {
     private NotesReportSaverService notesReportSaverService;
 
     @GetMapping("/check-test")
-    public String checkNotesReport(HttpSession session) throws Exception {
-        return notesReportSaverService.checkIfNotesReportExists(session);
+    public Boolean checkNotesReport(HttpSession session) throws Exception {
+        return notesReportSaverService.checkIfNotesReportExists();
     }
 
     @GetMapping("/predicted")

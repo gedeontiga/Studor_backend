@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.restcontrollers;
+package com.studor.orientation_student.manager.controllers;
 
 import java.util.List;
 import java.util.Map;

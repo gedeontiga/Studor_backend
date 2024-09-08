@@ -6,57 +6,49 @@ import java.util.Map;
 
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.studor.orientation_student.entities.User;
 import com.studor.orientation_student.entities.profilejobprediction.Level;
-import com.studor.orientation_student.entities.profilejobprediction.NotesReport;
 import com.studor.orientation_student.entities.profilejobprediction.Subdomain;
-import com.studor.orientation_student.manager.repositories.UserRepository;
 import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.LevelRepository;
 import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.MatterRepository;
 import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.OptionRepository;
 
-import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Service
 @SessionScope
 public class NotesReportSaverService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
+    // private UserRepository userRepository;
     private MatterRepository matterRepository;
-
-    // @Autowired
     // private NotesReportRepository notesReportRepository;
-
-    @Autowired
     private LevelRepository levelRepository;
-
-    @Autowired
     private OptionRepository optionRepository;
 
-    public String checkIfNotesReportExists(HttpSession session){
+    public Boolean checkIfNotesReportExists(){
 
-        String userEmail = (String)session.getAttribute("email");
-        if (session.getAttribute("email") != null) {
-            User user = userRepository.findByEmail(userEmail).get();
-            List<NotesReport> notesReports = user.getProfil().getNotesReports();
-            // NotesReport notesReport = notesReports.get(notesReports.size());
-            if(notesReports.isEmpty()){
-                System.out.println("hello");
-                return "false";
-            }
-            else{
-                System.out.println("bye");
-                return "true";
-            }
-        }
-        return null;
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("=====================--->"+user.getUsername());
+        return true;
+        // if (session.getAttribute("email") != null) {
+        //     User user = userRepository.findByEmail(userEmail).get();
+        //     List<NotesReport> notesReports = user.getProfil().getNotesReports();
+        //     // NotesReport notesReport = notesReports.get(notesReports.size());
+        //     if(notesReports.isEmpty()){
+        //         System.out.println("hello");
+        //         return "false";
+        //     }
+        //     else{
+        //         System.out.println("bye");
+        //         return "true";
+        //     }
+        // }
+        // return null;
     }
 
     public List<String> getAllOption(){
@@ -85,9 +77,9 @@ public class NotesReportSaverService {
         return allMatterCoeficients;
     }
 
-    public void saveNotesReport(HttpSession session, Map<String, Object> notesReportMap){
+    public void saveNotesReport(Map<String, Object> notesReportMap){
 
-            if(session.getAttribute("email") != null){
+            // if(session.getAttribute("email") != null){
                 // String userEmail = (String)session.getAttribute("email");
                 // User user = userRepository.findByEmail(userEmail);
                 // NotesReport notesReport = new NotesReport();
@@ -108,6 +100,6 @@ public class NotesReportSaverService {
                 // notesReport.setNotes(notes);
                 // notesReport.setProfil(user.getProfil());
                 // notesReportRepository.save(notesReport);
-            }
+            // }
     }
 }
