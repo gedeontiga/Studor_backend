@@ -35,7 +35,16 @@ public class ValidationService {
         mailNotificationService.sendMail(validation);
     }
 
+    public void updateValidationInstant(Validation validation){
+        validation.setActivationInstant(Instant.now());
+        validationRepository.save(validation);
+    }
+
     public Validation checkValidation(String code){
         return validationRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Invalid code"));
+    }
+
+    public void deleteValidation(Validation validation) {
+        validationRepository.delete(validation);
     }
 }

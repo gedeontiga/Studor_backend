@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
     public boolean checkIfEmailAlreadyExists(String email){
         return userRepository.findByEmail(email).isPresent();
     }
-    
+
     public void register(User user, String nom, String prenom, String sexe, LocalDate birthDate){
         String encryptedPassword = this.passwordEncoder.encode(user.getMotDePasse());
         user.setMotDePasse(encryptedPassword);
@@ -46,15 +46,17 @@ public class UserService implements UserDetailsService {
         user = userRepository.save(user);
         validationService.signUp(user);
     }
-    
+
     public void activate(Map<String, Object> activation){
         Validation validation = validationService.checkValidation(activation.get("code").toString());
-        if(Instant.now().isAfter(validation.getExpirationInstant())){
+        User activeUser = userRepository.findById(validation.getUser().getId()).orElseThrow(() -> new RuntimeException("Validation not found"));
+        if((Instant.now().isAfter(validation.getExpirationInstant())) && !activeUser.getActif()){
+            validationService.deleteValidation(validation);
             throw new RuntimeException("Your code has expired");
         }
-        User activeUser = userRepository.findById(validation.getUser().getId()).orElseThrow(() -> new RuntimeException("Your code has expired"));
         activeUser.setActif(true);
         userRepository.save(activeUser);
+        validationService.updateValidationInstant(validation);
     }
 
     @Override
