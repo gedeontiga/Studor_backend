@@ -60,6 +60,12 @@ public class UserRestController {
         return null;
     }
 
+    @PostMapping("/logout")
+    public void logout() {
+        jwtService.logout();
+    }
+    
+
     @GetMapping("/check-email/{email}")
     public Boolean isValidEmail(@PathVariable String email) {
         return userService.checkIfEmailAlreadyExists(email);

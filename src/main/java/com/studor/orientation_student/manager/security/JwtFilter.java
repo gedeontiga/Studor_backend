@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.studor.orientation_student.entities.Jwt;
 import com.studor.orientation_student.manager.services.UserService;
 
 import jakarta.servlet.FilterChain;
@@ -25,21 +26,26 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
+    protected void doFilterInternal(@NonNull final HttpServletRequest request, @NonNull final HttpServletResponse response, @NonNull final FilterChain filterChain)
             throws ServletException, IOException {
 
         Boolean isTokenExpired = true;
         String email = null;
-        String authorization = request.getHeader("Authorization");
+        Jwt jwtLoaded = new Jwt();
+
+        final String authorization = request.getHeader("Authorization");
         if (authorization != null && authorization.startsWith("Bearer ")) {
-            String token = authorization.substring(7);
+            final String token = authorization.substring(7);
+            jwtLoaded = jwtService.getJwtByToken(token);
             isTokenExpired = jwtService.isTokenExpired(token);
             email = jwtService.getEmailFromToken(token);
         }
 
-        if (!isTokenExpired && email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByUsername(email);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        if (!isTokenExpired 
+                && jwtLoaded.getUser().getEmail().equals(email)
+                && SecurityContextHolder.getContext().getAuthentication() == null) {
+            final UserDetails userDetails = userService.loadUserByUsername(email);
+            final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
 
