@@ -61,8 +61,21 @@ public class UserRestController {
     }
 
     @PostMapping("/logout")
-    public void logout() {
+    public ResponseEntity<Void> logout() {
         jwtService.logout();
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Void> forgotPassword(@RequestBody Map<String, Object> formValue) {
+        userService.forgotPassword(formValue.get("email").toString());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/new-password")
+    public ResponseEntity<Void> newPassword(@RequestBody Map<String, Object> formValue){
+        userService.newPassword(formValue);
+        return ResponseEntity.ok().build();
     }
     
 

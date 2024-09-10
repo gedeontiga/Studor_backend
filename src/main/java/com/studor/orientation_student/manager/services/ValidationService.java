@@ -3,6 +3,7 @@ package com.studor.orientation_student.manager.services;
 import java.time.Instant;
 import java.util.Random;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -16,8 +17,8 @@ import lombok.AllArgsConstructor;
 @Service
 public class ValidationService {
     
-    private ValidationRepository validationRepository;
-    private MailNotificationService mailNotificationService;
+    private final   ValidationRepository validationRepository;
+    private final MailNotificationService mailNotificationService;
 
     public void signUp(User user){
         Validation validation = new Validation();
@@ -44,7 +45,8 @@ public class ValidationService {
         return validationRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Invalid code"));
     }
 
-    public void deleteValidation(Validation validation) {
-        validationRepository.delete(validation);
+    @Scheduled(cron = "@hourly")
+    public void deleteExpiratedValidation() {
+        this.validationRepository.deleteByExpirationInstantIsLessThanEqual(Instant.now());
     }
 }

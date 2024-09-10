@@ -51,7 +51,6 @@ public class UserService implements UserDetailsService {
         Validation validation = validationService.checkValidation(activation.get("code").toString());
         User activeUser = userRepository.findById(validation.getUser().getId()).orElseThrow(() -> new RuntimeException("Validation not found"));
         if((Instant.now().isAfter(validation.getExpirationInstant())) && !activeUser.getActif()){
-            validationService.deleteValidation(validation);
             throw new RuntimeException("Your code has expired");
         }
         activeUser.setActif(true);
@@ -64,5 +63,20 @@ public class UserService implements UserDetailsService {
         return userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
+    }
+
+    public void forgotPassword(String email) {
+        User user = this.loadUserByUsername(email);
+        validationService.signUp(user);
+    }
+
+    public void newPassword(Map<String, Object> formValues) {
+        User user = this.loadUserByUsername(formValues.get("email").toString());
+        final Validation validation = validationService.checkValidation(formValues.get("code").toString());
+        if (validation.getUser().getEmail().equals(user.getEmail())) {
+            String encryptedPassword = this.passwordEncoder.encode(formValues.get("password").toString());
+            user.setMotDePasse(encryptedPassword);
+            userRepository.save(user);
+        }
     }
 }
