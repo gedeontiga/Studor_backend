@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.studor.orientation_student.entities.suggestionCourEntities.ModelSuggestionCour;
 
 @Repository
-public interface ModelSuggestionCourRepository extends JpaRepository<ModelSuggestionCour, Long>{
-    
+public interface ModelSuggestionCourRepository extends JpaRepository<ModelSuggestionCour, Long> {
+
 }

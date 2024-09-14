@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Validation {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +28,6 @@ public class Validation {
     private Instant activationInstant;
     private String code;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE})
+    @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE })
     private User user;
 }

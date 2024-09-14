@@ -1,6 +1,5 @@
 package com.studor.orientation_student.entities.suggestionCourEntities;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -29,7 +28,7 @@ public class ModelSuggestionCour {
 
     public Classifier getClassifier() {
         try {
-            if(serialisezeModel != null){
+            if (serialisezeModel != null) {
                 ByteArrayInputStream bis = new ByteArrayInputStream(serialisezeModel);
                 ObjectInputStream ois = new ObjectInputStream(bis);
 
@@ -43,23 +42,19 @@ public class ModelSuggestionCour {
 
     public void setClassifier(Classifier classifier) {
         try {
-            if(classifier != null){
+            if (classifier != null) {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(bos);
                 oos.writeObject(classifier);
                 oos.flush();
                 serialisezeModel = bos.toByteArray();
-            }
-            else{
+            } else {
                 serialisezeModel = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-
-
 
     public byte[] getSerialisezeModel() {
         return serialisezeModel;
@@ -77,8 +72,6 @@ public class ModelSuggestionCour {
         this.idModel = idModel;
     }
 
-
-
     public String getVersion() {
         return version;
     }
@@ -87,4 +80,4 @@ public class ModelSuggestionCour {
         this.version = version;
     }
 
-}    
+}

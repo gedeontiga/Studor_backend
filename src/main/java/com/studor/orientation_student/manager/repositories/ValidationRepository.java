@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.studor.orientation_student.entities.Validation;
 
-
 @Repository
-public interface ValidationRepository extends JpaRepository<Validation, Long>{
+public interface ValidationRepository extends JpaRepository<Validation, Long> {
     Optional<Validation> findByCode(String code);
     void deleteByExpirationInstantIsLessThanEqual(Instant instant);
 }

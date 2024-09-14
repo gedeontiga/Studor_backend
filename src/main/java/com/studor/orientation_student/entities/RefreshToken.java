@@ -1,37 +1,31 @@
 package com.studor.orientation_student.entities;
 
-import jakarta.persistence.CascadeType;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-@Entity
-public class Jwt {
+public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String token;
-    private Boolean desactivated;
     private Boolean expired;
-
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-    private RefreshToken refreshToken;
-
-    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE })
-    private User user;
+    private String value;
+    private Date creation;
+    private Date expiration;
 }

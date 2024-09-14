@@ -55,11 +55,10 @@ public class Programme {
     public Profil getProfil() {
         return profil;
     }
+
     public void setProfil(Profil profil) {
         this.profil = profil;
     }
-
-    
 
     public Programme(Long duree, String difficulte, String description) {
         this.duree = duree;

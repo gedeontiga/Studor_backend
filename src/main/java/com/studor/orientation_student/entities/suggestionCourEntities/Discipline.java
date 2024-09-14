@@ -34,46 +34,58 @@ public class Discipline {
 
     public Discipline() {
     }
+
     public Discipline(String nom, Double progression) {
         this.nom = nom;
         this.progression = progression;
     }
+
     public Long getIdDiscipline() {
         return idDiscipline;
     }
+
     public void setIdDiscipline(Long idDiscipline) {
         this.idDiscipline = idDiscipline;
     }
+
     public String getNom() {
         return nom;
     }
+
     public NiveauAcademique getNiveauAcademique() {
         return niveauAcademique;
     }
+
     public void setNiveauAcademique(NiveauAcademique niveauAcademique) {
         this.niveauAcademique = niveauAcademique;
     }
+
     public List<Cour> getCours() {
         return cours;
     }
+
     public void setCours(List<Cour> cours) {
         this.cours = cours;
     }
+
     public EmploiTemps getEmploiTemps() {
         return emploiTemps;
     }
+
     public void setEmploiTemps(EmploiTemps emploiTemps) {
         this.emploiTemps = emploiTemps;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
+
     public Double getProgression() {
         return progression;
     }
+
     public void setProgression(Double progression) {
         this.progression = progression;
     }
 
-    
 }

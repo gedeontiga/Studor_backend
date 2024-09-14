@@ -34,7 +34,7 @@ public class Establishment {
 
     @ManyToMany(mappedBy = "establishments")
     private List<Training> trainings;
-    
+
     @ManyToMany(mappedBy = "establishments")
     private List<Domain> domains;
 

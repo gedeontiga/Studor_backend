@@ -8,9 +8,9 @@ import com.studor.orientation_student.entities.profilejobprediction.Subdomain;
 
 import java.util.List;
 
-
 @Repository
-public interface LevelRepository extends JpaRepository<Level, Long>{
+public interface LevelRepository extends JpaRepository<Level, Long> {
     Level findByCode(String code);
+
     List<Level> findByOption(Subdomain option);
 }

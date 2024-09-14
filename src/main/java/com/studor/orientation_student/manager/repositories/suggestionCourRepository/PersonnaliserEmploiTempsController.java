@@ -11,41 +11,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/emploiPersonnalise")
 public class PersonnaliserEmploiTempsController {
-    
+
     @GetMapping("/acceuilEmploiPersonnalise")
-    public String acceuilemploiPersonnalise(){
+    public String acceuilemploiPersonnalise() {
         return "fromAcceuilEmploiPersonnalise";
     }
 
     @PostMapping("/saveEmploiPersonnalise")
-    public String saveEmploiPersonnalise(@RequestParam("discipline") List<String> disciplines){
-        
+    public String saveEmploiPersonnalise(@RequestParam("discipline") List<String> disciplines) {
+
         return "formConfirmationEmploiPersonnalise";
     }
 
     public class UniteEnseignement {
         private String discipline;
         private Long duree;
+
         public UniteEnseignement() {
         }
+
         public UniteEnseignement(String discipline, Long duree) {
             this.discipline = discipline;
             this.duree = duree;
         }
+
         public String getDiscipline() {
             return discipline;
         }
+
         public void setDiscipline(String discipline) {
             this.discipline = discipline;
         }
+
         public Long getDuree() {
             return duree;
         }
+
         public void setDuree(Long duree) {
             this.duree = duree;
         }
 
-        
-        
     }
 }

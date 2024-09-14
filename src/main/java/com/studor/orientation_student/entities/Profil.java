@@ -38,7 +38,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "profil")
 public class Profil {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,7 +49,7 @@ public class Profil {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender sexe;
-    
+
     private String loisirs;
     private String metierDuPere;
     private String metierDeLaMere;

@@ -8,7 +8,8 @@ import java.util.List;
 import com.studor.orientation_student.entities.establishmentsuggestion.Domain;
 
 @Repository
-public interface OptionRepository extends JpaRepository<Subdomain, Long>{
+public interface OptionRepository extends JpaRepository<Subdomain, Long> {
     Subdomain findByNom(String nom);
+
     List<Subdomain> findByDomain(Domain domain);
 }

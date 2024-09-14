@@ -11,8 +11,10 @@ import com.studor.orientation_student.entities.profilejobprediction.NotesReport;
 import java.util.List;
 
 @Repository
-public interface NotesReportRepository extends JpaRepository<NotesReport, Long>{
+public interface NotesReportRepository extends JpaRepository<NotesReport, Long> {
     List<NotesReport> findByMention(String mention);
+
     List<NotesReport> findByMoyenne(double moyenne);
+
     List<NotesReport> findByProfil(Profil profil);
 }

@@ -20,14 +20,13 @@ public class Exercice {
     @JoinColumn(name = "idCour")
     private Cour cour;
 
-
     public Exercice() {
     }
 
     public Exercice(String titre, Long niveau, Long duree) {
         this.titre = titre;
         this.niveau = niveau;
-    this.duree = duree;
+        this.duree = duree;
     }
 
     public Long getIdExercice() {
@@ -70,7 +69,4 @@ public class Exercice {
         this.cour = cour;
     }
 
-    
-    
-    
 }

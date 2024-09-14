@@ -21,15 +21,12 @@ public class EmploiTemps {
     private String typeEmploiTemps;
     private String difficulte;
     private String nomEmploiTemps;
-    
+
     @OneToOne(mappedBy = "emploiTemps", cascade = CascadeType.ALL)
     private Programme programme;
 
     @OneToMany(mappedBy = "emploiTemps", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Discipline> disciplines = new ArrayList<>();
-
-
-
 
     public EmploiTemps() {
     }
@@ -47,7 +44,7 @@ public class EmploiTemps {
         this.difficulte = difficulte;
         this.programme = programme;
         this.disciplines = disciplines;
-        
+
     }
 
     public String getTypeEmploiTemps() {
@@ -97,8 +94,6 @@ public class EmploiTemps {
     public void setDisciplines(List<Discipline> disciplines) {
         this.disciplines = disciplines;
     }
-
-  
 
     public String getNomEmploiTemps() {
         return nomEmploiTemps;

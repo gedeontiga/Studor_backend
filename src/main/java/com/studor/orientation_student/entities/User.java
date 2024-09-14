@@ -26,14 +26,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class User implements UserDetails {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
     private String email;
-    
+
     private String nom;
     private String motDePasse;
     private Boolean actif = false;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private Role role;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profil_id")
     private Profil profil;
@@ -55,7 +55,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+this.role.getType()));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role.getType()));
     }
 
     @Override

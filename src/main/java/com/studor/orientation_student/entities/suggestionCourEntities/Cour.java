@@ -16,7 +16,7 @@ import jakarta.persistence.OneToMany;
 
 public class Cour {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCour;
     private String intitule;
     private String niveau;
@@ -86,8 +86,4 @@ public class Cour {
         this.duree = duree;
     }
 
-    
-
-    
-    
 }
