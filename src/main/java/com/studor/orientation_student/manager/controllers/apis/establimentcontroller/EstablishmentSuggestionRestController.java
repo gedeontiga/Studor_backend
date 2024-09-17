@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.establimentcontroller;
+package com.studor.orientation_student.manager.controllers.apis.establimentcontroller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 

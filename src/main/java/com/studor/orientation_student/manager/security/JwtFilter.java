@@ -2,12 +2,14 @@ package com.studor.orientation_student.manager.security;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.studor.orientation_student.entities.Jwt;
 import com.studor.orientation_student.manager.services.UserService;
@@ -22,6 +24,8 @@ import lombok.AllArgsConstructor;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver handlerExceptionResolver;
     private final UserService userService;
     private final JwtService jwtService;
 
@@ -32,24 +36,27 @@ public class JwtFilter extends OncePerRequestFilter {
         Boolean isTokenExpired = true;
         String email = null;
         Jwt jwtLoaded = new Jwt();
-
-        final String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.startsWith("Bearer ")) {
-            final String token = authorization.substring(7);
-            jwtLoaded = jwtService.getJwtByToken(token);
-            isTokenExpired = jwtService.isTokenExpired(token);
-            email = jwtService.getEmailFromToken(token);
-        }
-
-        if (!isTokenExpired 
-                && jwtLoaded.getUser().getEmail().equals(email)
-                && SecurityContextHolder.getContext().getAuthentication() == null) {
-            final UserDetails userDetails = userService.loadUserByUsername(email);
-            final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        }
-
-        filterChain.doFilter(request, response);
-    }
+        try {
+            final String authorization = request.getHeader("Authorization");
+            if (authorization != null && authorization.startsWith("Bearer ")) {
+                final String token = authorization.substring(7);
+                jwtLoaded = jwtService.getJwtByToken(token);
+                isTokenExpired = jwtService.isTokenExpired(token);
+                email = jwtService.getEmailFromToken(token);
+            }
     
+            if (!isTokenExpired 
+                    && jwtLoaded.getUser().getEmail().equals(email)
+                    && SecurityContextHolder.getContext().getAuthentication() == null) {
+                final UserDetails userDetails = userService.loadUserByUsername(email);
+                final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+    
+            filterChain.doFilter(request, response);
+            
+        } catch (Exception exception) {
+            handlerExceptionResolver.resolveException(request, response, null, exception);
+        }
+    }
 }

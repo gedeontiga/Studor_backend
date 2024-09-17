@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.jobcontroller;
+package com.studor.orientation_student.manager.controllers.apis.jobcontroller;
 
 import java.util.Map;
 

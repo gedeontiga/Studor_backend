@@ -48,13 +48,13 @@ public class UserService implements UserDetailsService {
     }
 
     public void activate(Map<String, Object> activation){
-        Validation validation = validationService.checkValidation(activation.get("code").toString());
-        User activeUser = userRepository.findById(validation.getUser().getId()).orElseThrow(() -> new RuntimeException("Validation not found"));
-        if((Instant.now().isAfter(validation.getExpirationInstant())) && !activeUser.getActif()){
+        User user = userRepository.findByEmail(activation.get("email").toString()).orElseThrow(() -> new RuntimeException("Validation not found"));
+        Validation validation = validationService.checkValidation(user, activation.get("code").toString());
+        if((Instant.now().isAfter(validation.getExpirationInstant())) && !user.getActif()){
             throw new RuntimeException("Your code has expired");
         }
-        activeUser.setActif(true);
-        userRepository.save(activeUser);
+        user.setActif(true);
+        userRepository.save(user);
         validationService.updateValidationInstant(validation);
     }
 
@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService {
 
     public void newPassword(Map<String, Object> formValues) {
         User user = this.loadUserByUsername(formValues.get("email").toString());
-        final Validation validation = validationService.checkValidation(formValues.get("code").toString());
+        final Validation validation = validationService.checkValidation(user, formValues.get("code").toString());
         if (validation.getUser().getEmail().equals(user.getEmail())) {
             String encryptedPassword = this.passwordEncoder.encode(formValues.get("password").toString());
             user.setMotDePasse(encryptedPassword);

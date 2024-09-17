@@ -1,0 +1,15 @@
+###
+// Login
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+    "email": "manager@studor.com",
+    "password": "manager"
+}
+
+###
+// Get All Users
+GET http://localhost:8080/manager/all-users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjY1OTQxNDIsImV4cCI6MTcyNjU5NDI2MiwianRpIjoibWFuYWdlckBzdHVkb3IuY29tIiwic3ViIjoiTUFOQUdFUiJ9.AM3EN7uL_5hjUL5xkjuzXUJo3G3RHdlT3DIEFaTWzNE5W-nekhEkwriis8qeNxFlif03pL5dsJvPuFPZE7aI3g

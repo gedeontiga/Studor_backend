@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.suggestionCourRestController;
+package com.studor.orientation_student.manager.controllers.apis.suggestionCourRestController;
 
 import java.util.ArrayList;
 import java.util.List;

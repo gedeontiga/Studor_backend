@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers;
+package com.studor.orientation_student.manager.controllers.apis;
 
 import java.time.LocalDate;
 import java.util.Date;

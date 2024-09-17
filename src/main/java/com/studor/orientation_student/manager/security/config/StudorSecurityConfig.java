@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Configuration
+@EnableMethodSecurity
 @EnableWebSecurity
 public class StudorSecurityConfig {
     
@@ -34,6 +36,8 @@ public class StudorSecurityConfig {
                         authorize -> authorize
                             .requestMatchers("/user/**").permitAll()
                             .requestMatchers("/notesreport-api/**").permitAll()
+                            // .requestMatchers("/admin/**").hasRole("ADMIN")
+                            // .requestMatchers("/manager/**").hasRole("MANAGER")
                             .anyRequest().authenticated())
                     .sessionManagement(httpSecuritySessionManagementConfigurer -> 
                             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

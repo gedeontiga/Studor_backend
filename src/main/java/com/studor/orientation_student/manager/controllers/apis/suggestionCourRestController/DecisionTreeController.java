@@ -1,4 +1,4 @@
-package com.studor.orientation_student.manager.controllers.suggestionCourRestController;
+package com.studor.orientation_student.manager.controllers.apis.suggestionCourRestController;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

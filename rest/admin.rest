@@ -1,0 +1,15 @@
+###
+// Login
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+    "email": "gedeon.tiga@studor.com",
+    "password": "admin"
+}
+
+###
+// Get All Users
+GET http://localhost:8080/admin/all-users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjY1OTQxNDIsImV4cCI6MTcyNjU5NDI2MiwianRpIjoibWFuYWdlckBzdHVkb3IuY29tIiwic3ViIjoiTUFOQUdFUiJ9.AM3EN7uL_5hjUL5xkjuzXUJo3G3RHdlT3DIEFaTWzNE5W-nekhEkwriis8qeNxFlif03pL5dsJvPuFPZE7aI3g

@@ -41,8 +41,8 @@ public class ValidationService {
         validationRepository.save(validation);
     }
 
-    public Validation checkValidation(String code){
-        return validationRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Invalid code"));
+    public Validation checkValidation(User user, String code){
+        return validationRepository.findByUserAndCode(user, code).orElseThrow(() -> new RuntimeException("Invalid code"));
     }
 
     @Scheduled(cron = "@hourly")

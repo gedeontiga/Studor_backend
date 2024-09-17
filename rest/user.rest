@@ -1,0 +1,34 @@
+###
+// Inscription
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+    "firstName": "Try",
+    "lastName": "Catch",
+    "birthDate": "2003-03-22",
+    "gender": "Masculin",
+    "email": "test@studor.com",
+    "username": "Test",
+    "password": "test..."
+}
+
+###
+// Activation
+POST http://localhost:8080/user/activation
+Content-Type: application/json
+
+{
+    "email": "test@studor.com",
+    "code": "250758"
+}
+
+###
+// Connexion
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+    "email": "test@studor.com",
+    "password": "test..."
+}
