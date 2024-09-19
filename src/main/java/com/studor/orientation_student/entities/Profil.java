@@ -50,7 +50,9 @@ public class Profil {
     @Enumerated(EnumType.STRING)
     private Gender sexe;
 
-    private String loisirs;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Hobbies> hobbies;
+
     private String metierDuPere;
     private String metierDeLaMere;
     private String religion;

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,12 @@ public class Notes {
     @ManyToOne
     private NotesReport notesReport;
 
-    @ManyToOne
+    @OneToOne
     private Matter matter;
+
+    public Notes(double note, NotesReport notesReport, Matter matter) {
+        this.note = note;
+        this.notesReport = notesReport;
+        this.matter = matter;
+    }
 }
