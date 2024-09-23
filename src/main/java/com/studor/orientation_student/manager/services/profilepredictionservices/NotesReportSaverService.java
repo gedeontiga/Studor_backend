@@ -11,15 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.studor.orientation_student.entities.User;
-import com.studor.orientation_student.entities.profilejobprediction.Level;
+import com.studor.orientation_student.entities.establishmentsuggestion.Level;
 import com.studor.orientation_student.entities.profilejobprediction.Matter;
 import com.studor.orientation_student.entities.profilejobprediction.Notes;
 import com.studor.orientation_student.entities.profilejobprediction.NotesReport;
-import com.studor.orientation_student.entities.profilejobprediction.Subdomain;
+import com.studor.orientation_student.entities.profilejobprediction.Options;
 import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.LevelRepository;
-import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.MatterRepository;
 import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.NotesReportRepository;
-import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.OptionRepository;
+import com.studor.orientation_student.manager.repositories.profilejobpredictrepository.OptionsRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -28,11 +27,9 @@ import lombok.AllArgsConstructor;
 @SessionScope
 public class NotesReportSaverService {
 
-    // private UserRepository userRepository;
-    private final MatterRepository matterRepository;
     private final NotesReportRepository notesReportRepository;
     private final LevelRepository levelRepository;
-    private final OptionRepository optionRepository;
+    private final OptionsRepository optionsRepository;
 
     public Boolean checkIfNotesReportExists(){
 
@@ -42,15 +39,15 @@ public class NotesReportSaverService {
 
     public List<String> getAllOption(){
         List<String> allNameOption = new ArrayList<>();
-        optionRepository.findAll().forEach(option -> allNameOption.add(option.getNom()));
+        optionsRepository.findAll().forEach(option -> allNameOption.add(option.getNom()));
         return allNameOption;
     }
 
     public List<String> getAllLevel(String optionName){
         List<String> allCodeLevel = new ArrayList<>();
-        Subdomain option = new Subdomain();
-        option = optionRepository.findByNom(optionName);
-        levelRepository.findByOption(option).forEach(level -> {
+        Options option = new Options();
+        option = optionsRepository.findByNom(optionName);
+        option.getLevels().forEach(level -> {
             allCodeLevel.add(level.getCode());
         });
         return allCodeLevel;
@@ -60,7 +57,7 @@ public class NotesReportSaverService {
         Map<String, Integer> allMatterCoeficients = new HashMap<>();
         Level level = new Level();
         level = levelRepository.findByCode(codeLevel);
-        matterRepository.findByLevel(level).forEach(matter -> {
+        level.getMatters().forEach(matter -> {
             allMatterCoeficients.put(matter.getNom(), matter.getCoef());
         });
         return allMatterCoeficients;

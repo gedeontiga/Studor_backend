@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.List;
 
 import com.studor.orientation_student.entities.Profil;
+import com.studor.orientation_student.entities.establishmentsuggestion.Subdomain;
 import com.studor.orientation_student.entities.establishmentsuggestion.Training;
 
 import jakarta.persistence.CascadeType;
@@ -41,7 +42,7 @@ public class Job {
     private List<Profil> profils;
 
     @ManyToOne
-    private Subdomain option;
+    private Subdomain subdomain;
 
     @OneToOne
     private Training training;

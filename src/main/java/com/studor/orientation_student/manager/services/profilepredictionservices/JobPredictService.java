@@ -91,7 +91,7 @@ public class JobPredictService {
         }
         String jobImage = Base64.getEncoder().encodeToString(jobImagebytes);
         jobMap.put("jobImage", jobImage);
-        jobMap.put("option", job.getOption().getNom());
+        jobMap.put("option", job.getSubdomain().getNom());
         return jobMap;
     }
 }

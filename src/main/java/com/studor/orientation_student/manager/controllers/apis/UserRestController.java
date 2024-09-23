@@ -100,7 +100,9 @@ public class UserRestController {
             final LocalDate birthDate = LocalDate.parse(signUpFormValues.get("birthDate").toString());
             userService.register(user, signUpFormValues.get("firstName").toString(),
                     signUpFormValues.get("lastName").toString(),
-                    signUpFormValues.get("gender").toString(), birthDate);
+                    signUpFormValues.get("gender").toString(),
+                    signUpFormValues.get("loisir_1").toString(), 
+                    signUpFormValues.get("loisir_2").toString(), birthDate);
 
                     System.out.println(new Date());
             response.put("status", "success");

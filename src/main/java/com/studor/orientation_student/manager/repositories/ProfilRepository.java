@@ -10,17 +10,12 @@ import com.studor.orientation_student.entities.User;
 import com.studor.orientation_student.entities.profilejobprediction.Job;
 
 import java.time.LocalDate;
-import java.sql.Blob;
 
 @Repository
 public interface ProfilRepository extends JpaRepository<Profil, Long> {
     List<Profil> findByDateDeNaissance(LocalDate dateDeNaissance);
 
-    List<Profil> findByLoisirs(String loisirs);
-
     List<Profil> findByNom(String nom);
-
-    List<Profil> findByPhotoProfile(Blob photoProfile);
 
     List<Profil> findByReligion(String religion);
 

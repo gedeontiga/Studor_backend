@@ -1,5 +1,6 @@
 package com.studor.orientation_student.manager.services;
 
+import java.util.List;
 import java.util.Map;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import com.studor.orientation_student.entities.Role;
 import com.studor.orientation_student.entities.RoleType;
 import com.studor.orientation_student.entities.User;
 import com.studor.orientation_student.entities.Validation;
+import com.studor.orientation_student.manager.repositories.HobbiesRepository;
 import com.studor.orientation_student.manager.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -23,25 +25,34 @@ import lombok.AllArgsConstructor;
 @Service
 public class UserService implements UserDetailsService {
     
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private ValidationService validationService;
+    private final ValidationService validationService;
+    private final HobbiesRepository hobbiesRepository;
 
     public boolean checkIfEmailAlreadyExists(String email){
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public void register(User user, String nom, String prenom, String sexe, LocalDate birthDate){
+    public void register(User user, String nom, String prenom, String sexe, 
+            String loisir1, String loisir2, LocalDate birthDate){
         String encryptedPassword = this.passwordEncoder.encode(user.getMotDePasse());
         user.setMotDePasse(encryptedPassword);
+
         Role role = new Role();
         role.setType(RoleType.USER);
         user.setRole(role);
+
         Profil profil = new Profil();
         profil.setNom(nom);
         profil.setPrenom(prenom);
         profil.setDateDeNaissance(birthDate);
         profil.setSexe(Gender.valueOf(sexe.toUpperCase()));
+        profil.setHobbies(List.of(
+            hobbiesRepository.findByName(loisir1).get(),
+            hobbiesRepository.findByName(loisir2).get()
+        ));
+
         user.setProfil(profil);
         user = userRepository.save(user);
         validationService.signUp(user);

@@ -1,6 +1,6 @@
 package com.studor.orientation_student.entities.profilejobprediction;
 
-import com.studor.orientation_student.entities.establishmentsuggestion.Training;
+import com.studor.orientation_student.entities.establishmentsuggestion.Level;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,9 +24,6 @@ public class Matter {
     private Long id;
     private String nom;
     private int coef;
-
-    @ManyToOne
-    private Training training;
 
     @ManyToOne
     private Level level;

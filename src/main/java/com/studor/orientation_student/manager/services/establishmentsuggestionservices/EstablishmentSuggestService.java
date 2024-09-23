@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -20,8 +21,6 @@ import com.studor.orientation_student.entities.establishmentsuggestion.Training;
 import com.studor.orientation_student.entities.profilejobprediction.Job;
 import com.studor.orientation_student.manager.repositories.UserRepository;
 import com.studor.orientation_student.manager.repositories.establishmentsuggestcontroller.TrainingRepository;
-
-import jakarta.servlet.http.HttpSession;
 
 @Service
 @SessionScope
@@ -33,14 +32,9 @@ public class EstablishmentSuggestService {
     @Autowired
     private UserRepository userRepository;
 
-    public Map<String, Object> suggestEstablishmentOnJob(HttpSession session) {
-        System.out.println((String) session.getAttribute("email"));
+    public Map<String, Object> suggestEstablishmentOnJob() {
 
-        // Check if user has already a session
-        if (session.getAttribute("email") != null) {
-            String email = (String) session.getAttribute("email");
-
-            User user = userRepository.findByEmail(email).get();
+            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Job job = user.getProfil().getJob();
             List<Establishment> establishments = job.getTraining().getEstablishments();
             
@@ -52,94 +46,90 @@ public class EstablishmentSuggestService {
                 userRepository.save(user);
             }
 
-            // Hash which i send to JS using ajax
-            Map<String, Object> establishmentMap = new HashMap<>();
-            establishmentMap.put("name", establishments.get(0).getNom());
-            establishmentMap.put("establishmentLocation", establishments.get(0).getLocalisation());
-            establishmentMap.put("directorName", establishments.get(0).getNomDirecteur());
+            return establishmentInfoMapRender(establishments, job);
+    }
 
-            Blob establishmentImageBlob = establishments.get(0).getImage();
+    public Map<String, Object> getEstablishmentOnJob() {
+
+            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<Establishment> establishments = user.getProfil().getJob().getTraining().getEstablishments();
+
+            return establishmentMapRender(establishments);
+    }
+
+    private Map<String, Object> establishmentInfoMapRender(List<Establishment> establishments, Job job){
+        // Hash which i send to JS using ajax
+        Map<String, Object> establishmentMap = new HashMap<>();
+        establishmentMap.put("name", establishments.get(0).getNom());
+        establishmentMap.put("establishmentLocation", establishments.get(0).getLocalisation());
+        establishmentMap.put("directorName", establishments.get(0).getNomDirecteur());
+
+        Blob establishmentImageBlob = establishments.get(0).getImage();
+        byte[] establishmentImagebytes = null;
+        try (InputStream inputStream = establishmentImageBlob.getBinaryStream()) {
+            establishmentImagebytes = inputStream.readAllBytes();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        String establishmentImage = Base64.getEncoder().encodeToString(establishmentImagebytes);
+        establishmentMap.put("establishmentImage", establishmentImage);
+
+        Training training = trainingRepository.findByJob(job);
+
+        establishmentMap.put("trainingName", training.getNom());
+        establishmentMap.put("trainingCost", training.getCout());
+        establishmentMap.put("option", training.getJob().getSubdomain().getNom());
+        establishmentMap.put("domain", training.getJob().getSubdomain().getDomain().getNom());
+
+        List<String> trainingMatterName = new ArrayList<>();
+        training.getMatters().forEach(matter -> trainingMatterName.add(matter.getNom()));
+        establishmentMap.put("trainingMatterName", trainingMatterName);
+
+        List<Integer> trainingMatterCredit = new ArrayList<>();
+        training.getMatters().forEach(matter -> trainingMatterCredit.add(matter.getCoef()));
+        establishmentMap.put("trainingMatterCredit", trainingMatterCredit);
+
+        return establishmentMap;
+    }
+
+    private Map<String, Object> establishmentMapRender(List<Establishment> establishments){
+        Map<String, Object> establishmentMap = new HashMap<>();
+        List<String> establishmensNameList = new ArrayList<>();
+        establishments.forEach(establishment -> establishmensNameList.add(establishment.getNom()));
+        establishmentMap.put("establishmentName", establishmensNameList);
+
+        List<String> establishmentImageList = new ArrayList<>();
+        establishments.forEach(establishment -> {
+            Blob establishmentImageBlob = establishment.getImage();
             byte[] establishmentImagebytes = null;
+
             try (InputStream inputStream = establishmentImageBlob.getBinaryStream()) {
                 establishmentImagebytes = inputStream.readAllBytes();
             } catch (SQLException | IOException e) {
                 e.printStackTrace();
             }
             String establishmentImage = Base64.getEncoder().encodeToString(establishmentImagebytes);
-            establishmentMap.put("establishmentImage", establishmentImage);
+            establishmentImageList.add(establishmentImage);
+        });
+        establishmentMap.put("establishmentImageList", establishmentImageList);
 
-            Training training = trainingRepository.findByJob(job);
+        List<String> establishmentLocation = new ArrayList<>();
+        establishments.forEach(establishment -> establishmentLocation.add(establishment.getLocalisation()));
+        establishmentMap.put("establishmentLocationList", establishmentLocation);
 
-            establishmentMap.put("trainingName", training.getNom());
-            establishmentMap.put("trainingCost", training.getCout());
-            establishmentMap.put("option", training.getJob().getOption().getNom());
-            establishmentMap.put("domain", training.getJob().getOption().getDomain().getNom());
+        List<String> establishmentDirectorNameList = new ArrayList<>();
+        establishments.forEach(establishment -> establishmentDirectorNameList.add(establishment.getNomDirecteur()));
+        establishmentMap.put("directorNameList", establishmentDirectorNameList);
 
-            List<String> trainingMatterName = new ArrayList<>();
-            training.getMatters().forEach(matter -> trainingMatterName.add(matter.getNom()));
-            establishmentMap.put("trainingMatterName", trainingMatterName);
+        List<String> establishmentDomainNameList = new ArrayList<>();
+        establishments.forEach(establishment -> establishment.getDomains().forEach(domain -> {
+            if (!establishmentDomainNameList.contains(domain.getNom())) {
+                establishmentDomainNameList.add(domain.getNom());
+            }
+        }));
+        System.out.println(establishmensNameList);
+        establishmentMap.put("estabishmentDomainNameList", establishmentDomainNameList);
 
-            // String trainingMatterLevel = training.getMatters().get(0).getLevel().getCode();
-            // establishmentMap.put("trainingMatterLevel", trainingMatterLevel);
-
-            List<Integer> trainingMatterCredit = new ArrayList<>();
-            training.getMatters().forEach(matter -> trainingMatterCredit.add(matter.getCoef()));
-            establishmentMap.put("trainingMatterCredit", trainingMatterCredit);
-
-            // System.out.println(establishmentMap);
-
-            return establishmentMap;
-        }
-        return null;
-    }
-
-    public Map<String, Object> getEstablishmentOnJob(HttpSession session) {
-
-        if (session.getAttribute("email") != null) {
-            String email = (String) session.getAttribute("email");
-
-            User user = userRepository.findByEmail(email).get();
-            List<Establishment> establishments = user.getProfil().getJob().getTraining().getEstablishments();
-
-            Map<String, Object> establishmentMap = new HashMap<>();
-            List<String> establishmensNameList = new ArrayList<>();
-            establishments.forEach(establishment -> establishmensNameList.add(establishment.getNom()));
-            establishmentMap.put("establishmentName", establishmensNameList);
-
-            List<String> establishmentImageList = new ArrayList<>();
-            establishments.forEach(establishment -> {
-                Blob establishmentImageBlob = establishment.getImage();
-                byte[] establishmentImagebytes = null;
-
-                try (InputStream inputStream = establishmentImageBlob.getBinaryStream()) {
-                    establishmentImagebytes = inputStream.readAllBytes();
-                } catch (SQLException | IOException e) {
-                    e.printStackTrace();
-                }
-                String establishmentImage = Base64.getEncoder().encodeToString(establishmentImagebytes);
-                establishmentImageList.add(establishmentImage);
-            });
-            establishmentMap.put("establishmentImageList", establishmentImageList);
-
-            List<String> establishmentLocation = new ArrayList<>();
-            establishments.forEach(establishment -> establishmentLocation.add(establishment.getLocalisation()));
-            establishmentMap.put("establishmentLocationList", establishmentLocation);
-
-            List<String> establishmentDirectorNameList = new ArrayList<>();
-            establishments.forEach(establishment -> establishmentDirectorNameList.add(establishment.getNomDirecteur()));
-            establishmentMap.put("directorNameList", establishmentDirectorNameList);
-
-            List<String> establishmentDomainNameList = new ArrayList<>();
-            establishments.forEach(establishment -> establishment.getDomains().forEach(domain -> {
-                if (!establishmentDomainNameList.contains(domain.getNom())) {
-                    establishmentDomainNameList.add(domain.getNom());
-                }
-            }));
-            System.out.println(establishmensNameList);
-            establishmentMap.put("estabishmentDomainNameList", establishmentDomainNameList);
-
-            return establishmentMap;
-        }
-        return null;
+        return establishmentMap;
     }
 }
