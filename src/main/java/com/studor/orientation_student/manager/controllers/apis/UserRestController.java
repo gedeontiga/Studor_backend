@@ -101,8 +101,8 @@ public class UserRestController {
             userService.register(user, signUpFormValues.get("firstName").toString(),
                     signUpFormValues.get("lastName").toString(),
                     signUpFormValues.get("gender").toString(),
-                    signUpFormValues.get("loisir_1").toString(), 
-                    signUpFormValues.get("loisir_2").toString(), birthDate);
+                    signUpFormValues.get("loisir1").toString(), 
+                    signUpFormValues.get("loisir2").toString(), birthDate);
 
                     System.out.println(new Date());
             response.put("status", "success");

@@ -49,8 +49,8 @@ public class UserService implements UserDetailsService {
         profil.setDateDeNaissance(birthDate);
         profil.setSexe(Gender.valueOf(sexe.toUpperCase()));
         profil.setHobbies(List.of(
-            hobbiesRepository.findByName(loisir1).get(),
-            hobbiesRepository.findByName(loisir2).get()
+            hobbiesRepository.findByNom(loisir1).get(),
+            hobbiesRepository.findByNom(loisir2).get()
         ));
 
         user.setProfil(profil);

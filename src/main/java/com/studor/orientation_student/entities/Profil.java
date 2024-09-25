@@ -1,6 +1,5 @@
 package com.studor.orientation_student.entities;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -58,8 +56,7 @@ public class Profil {
     private String religion;
     private String sport;
 
-    @Lob
-    private Blob photoProfile;
+    private String cheminPhotoProfile;
 
     @ManyToOne
     private Job job;

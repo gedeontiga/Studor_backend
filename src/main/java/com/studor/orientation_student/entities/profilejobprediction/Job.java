@@ -1,6 +1,5 @@
 package com.studor.orientation_student.entities.profilejobprediction;
 
-import java.sql.Blob;
 import java.util.List;
 
 import com.studor.orientation_student.entities.Profil;
@@ -12,7 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -35,8 +33,7 @@ public class Job {
     private String description;
     private Long salaire;
 
-    @Lob
-    private Blob image;
+    private String cheminImage;
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
     private List<Profil> profils;

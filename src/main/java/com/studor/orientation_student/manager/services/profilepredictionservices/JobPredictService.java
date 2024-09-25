@@ -1,11 +1,6 @@
 package com.studor.orientation_student.manager.services.profilepredictionservices;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +55,8 @@ public class JobPredictService {
         map.put("age", age);
 
         List<Hobbies> hobbies = user.getProfil().getHobbies();
-        map.put("loisir_1", hobbies.get(0));
-        map.put("loisir_2", hobbies.get(1));
+        map.put("loisir_1", hobbies.get(0).getNom());
+        map.put("loisir_2", hobbies.get(1).getNom());
         
         RestTemplate restTemplate = new RestTemplate();
         String jobName = restTemplate.postForObject(FLASK_API_URL, map, String.class);
@@ -82,15 +77,8 @@ public class JobPredictService {
         job.getTraining().getEstablishments().forEach(establishment -> establishmentNameList.add(establishment.getNom()));
         jobMap.put("establishment", establishmentNameList);
         jobMap.put("salary", job.getSalaire());
-        Blob jobImageBlob = job.getImage();
-        byte[] jobImagebytes = null;
-        try (InputStream inputStream = jobImageBlob.getBinaryStream()) {
-            jobImagebytes = inputStream.readAllBytes();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-        String jobImage = Base64.getEncoder().encodeToString(jobImagebytes);
-        jobMap.put("jobImage", jobImage);
+        String jobImagePath = job.getCheminImage();
+        jobMap.put("jobImage", jobImagePath);
         jobMap.put("option", job.getSubdomain().getNom());
         return jobMap;
     }
